@@ -1,13 +1,11 @@
 html {
-  --color-accent: oklch(0.7 0.2023 40.76);  /* or whatever color you choose */
+  --color-accent: oklch(0.7 0.2023 40.76);  
   accent-color: var(--color-accent);
 }
 body {
-    /* Set line height to 1.5 times the font size
-         and use the OS’s UI font as the website font
-       */
+    
     font: 100%/1.5 system-ui;
-    max-width: 63ch;
+    max-width: 60em;
     margin-inline: auto;
     padding-left: 25px ;
     nav ul,
@@ -64,10 +62,124 @@ body {
     }
     
     button {
-        grid-column: 1 / -1; /* span both columns */
+        grid-column: 1 / -1; 
         padding: 0.5em 1em;
         font: inherit;
     }
-  
-  
+    
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+      gap: 1.5em; 
+      padding: 1em; 
+    }
+    .projects article {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 3;
+      background-color: #f4f4f4;
+      padding: 1em;
+      border-radius: 0.5em;
   }
+  
+  .projects h2 {
+      margin: 0;
+  }
+  h1 {
+    font-size: 400%;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  h2, h3, h4, h5, h6 {
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  .resume {
+    padding-block: 2em;
+    color: #111;
+  }
+  
+  /* Section spacing */
+  .resume section {
+    margin-bottom: 2em;
+  }
+  
+  /* Headings */
+  .resume h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.2em;
+  }
+  
+  .resume h2 {
+    font-size: 1.5em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: 0.2em;
+  }
+  
+  .resume h3 {
+    font-size: 1.2em;
+    margin-top: 1em;
+    margin-bottom: 0.3em;
+  }
+  
+  /* Grid-style layout for job/project items */
+  .resume .job, .resume .project {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 0.5em;
+  }
+  
+  .resume .job-title,
+  .resume .project-title {
+    font-weight: bold;
+  }
+  
+  .resume .job-dates,
+  .resume .project-dates {
+    text-align: right;
+    color: oklch(60% 0.05 270);
+    font-style: italic;
+  }
+  
+  /* Bullet list */
+  .resume ul {
+    padding-left: 1.5em;
+    margin: 0.5em 0;
+  }
+  
+  .resume ul li {
+    list-style-type: disc;
+  }
+ /* Hover effect with lighter accent by modifying the opacity */
+.resume section {
+  transition: background-color 0.2s ease, padding-inline 0.2s ease, border-radius 0.2s ease;
+}
+
+.resume section:hover {
+  background-color: rgba(144, 144, 255, 0.2); /* Adjust opacity to 0.2 to make it lighter */
+  border-radius: 0.5em;
+  padding-inline: 0.5em;
+}
+
+/* If you want to apply the lighter background effect on the hover */
+.resume > *:hover {
+  background-color: rgba(144, 144, 255, 0.2); /* Lighter accent effect */
+  border-radius: 0.5em;
+  padding-inline: 0.5em;
+  transition: background-color 0.2s ease;
+}
+
+
+
+  
+  
+}
+
+
+
+  
