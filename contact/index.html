@@ -10,31 +10,35 @@
 <body>
     <h1>Contact</h1>
 
-    <nav></nav>
+    <nav>
         <ul>
             <li><a href="../index.html">Home</a></li>
             <li><a href="../projects/index.html">Projects</a></li>
             <li><a href="../resume/index.html">Resume</a></li>
-            <li><a href="index.html">Contact</a></li>
+            <li><a href="index.html"class = "current">Contact</a></li>
             <li><a href="https://github.com/tejassmani" target="_blank">GitHub</a></li>
         </ul>
     </nav>
 
     <form action="mailto:your.email@example.com" method="POST" enctype="text/plain">
-        <label for="email">Your Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br><br>
-
-        <label for="subject">Subject:</label>
-        <input type="text" id="subject" name="subject" required>
-        <br><br>
-
-        <label for="body">Message:</label>
-        <textarea id="body" name="body" rows="5" required></textarea>
-        <br><br>
-
-        <button>Send Message</button>
+        <div class="form-row">
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+    
+        <div class="form-row">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+        </div>
+    
+        <div class="form-row">
+            <label for="body">Message:</label>
+            <textarea id="body" name="body" rows="5" required></textarea>
+        </div>
+    
+        <button type="submit">Send Message</button>
     </form>
+    
     
 </body>
 </html>

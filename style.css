@@ -1,3 +1,7 @@
+html {
+  --color-accent: oklch(0.7 0.2023 40.76);  /* or whatever color you choose */
+  accent-color: var(--color-accent);
+}
 body {
     /* Set line height to 1.5 times the font size
          and use the OS’s UI font as the website font
@@ -6,4 +10,64 @@ body {
     max-width: 63ch;
     margin-inline: auto;
     padding-left: 25px ;
+    nav ul,
+    nav li {
+      display: contents;
+    }
+
+    nav{
+      display: flex;
+      margin-bottom: 1em; 
+      border-bottom: 1px solid oklch(80% 3% 200); 
+
+    }
+    nav a{
+    flex: 1;
+    text-align: center;
+    padding: 0.5em;
+    color: inherit;
+    }
+    nav a.current {
+      border-bottom: 0.4em solid oklch(90% 3% 200); 
+      padding-bottom: 0.1em; 
+      font-weight: bold;
+    }
+    nav a:hover {
+      border-bottom: 0.4em solid var(--color-accent);
+      padding-bottom: 0.1em; 
+    }
+
+    form {
+      display: grid;
+      gap: 1em;
+      font: inherit;
+      margin-top: 2em;
+  }
+  
+    .form-row {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 0.5em;
+    }
+    
+    .form-row label {
+        margin: 0;
+        font-weight: bold;
+    }
+    
+    .form-row input,
+    .form-row textarea {
+        width: 100%;
+        box-sizing: border-box;
+        font: inherit;
+    }
+    
+    button {
+        grid-column: 1 / -1; /* span both columns */
+        padding: 0.5em 1em;
+        font: inherit;
+    }
+  
+  
   }
