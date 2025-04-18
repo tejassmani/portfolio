@@ -1,6 +1,7 @@
 html {
   --color-accent: oklch(0.7 0.2023 40.76);  
   accent-color: var(--color-accent);
+  color-scheme: light dark;
 }
 body {
     
@@ -17,6 +18,8 @@ body {
       display: flex;
       margin-bottom: 1em; 
       border-bottom: 1px solid oklch(80% 3% 200); 
+      border-bottom-color: oklch(50% 10% 200 / 40%);
+
 
     }
     nav a{
@@ -33,6 +36,7 @@ body {
     nav a:hover {
       border-bottom: 0.4em solid var(--color-accent);
       padding-bottom: 0.1em; 
+      background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
     }
 
     form {
@@ -98,7 +102,7 @@ body {
 
   .resume {
     padding-block: 2em;
-    color: #111;
+    
   }
   
   /* Section spacing */
@@ -174,6 +178,20 @@ body {
   transition: background-color 0.2s ease;
 }
 
+.color-scheme {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 80%;
+  font-family: inherit;
+}
+
+.color-scheme select {
+  font-family: inherit;
+}
+.color-scheme select:hover {
+  background-color: color-mix(in oklch, var(--color-accent), canvas 90%);
+}
 
 
   
