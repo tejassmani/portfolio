@@ -13,7 +13,7 @@ function $$(selector, context = document) {
 
 const BASE_PATH = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
   ? "/"                  // Local server
-  : "/website/";         // GitHub Pages repo name
+  : "/portfolio/";         // GitHub Pages repo name
 
 let pages = [
     { url: "", title: "Home" },
@@ -74,3 +74,20 @@ for (let p of pages) {
     console.log('color scheme changed to', event.target.value);
     setColorScheme(event.target.value);
   });
+
+  const form = document.querySelector('#contact-form');
+
+form?.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const data = new FormData(form);
+  const params = [];
+
+  for (let [name, value] of data) {
+    params.push(`${name}=${encodeURIComponent(value)}`);
+  }
+
+  const url = `${form.action}?${params.join('&')}`;
+  location.href = url;
+});
+
