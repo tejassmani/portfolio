@@ -1,33 +1,39 @@
 [
     {
-        "title": "Lorem ipsum dolor sit.",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius ad maiores nemo consectetur adipisci officiis optio doloremque fuga, consequuntur aperiam illo quas eaque quaerat quasi magnam! Iste placeat reiciendis ullam."
+        "title": "Are Breakfast Foods Processed In and Out of Food Deserts?",
+        "image": "/images/proj1_106.png",
+        "year": "2025",
+        "description": "A visualization delving into the intersection of breakfast and food inequity: Assuming universal product availability, food deserts and non-food deserts serve up similar distributions of highly-processed breakfast foods."
     },
     {
-        "title": "Cupiditate enim provident nemo.",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Voluptates nihil, impedit ab voluptas esse quisquam inventore! Dolores iure rem, ut, culpa aut suscipit quaerat possimus vitae esse maiores numquam. Debitis delectus fugiat hic ullam iste nulla rerum molestias."
+        "title": "Economic Analysis of Power Outages",
+        "image": "/images/newplot.png",
+        "year":"2024",
+        "description": "A comprehensive analysis to provide an economic perspective in which to examine disparities within the utility industry revolving around this central question: How can econonomic factors explain the length and cause of power outages?"
     },
     {
-        "title": "Eligendi alias accusamus sint!",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Nostrum dolorem aliquid ullam ab tempore, possimus neque labore deleniti modi debitis, in animi saepe velit cupiditate dolores. Fugit similique natus mollitia eaque ea perferendis fuga iste in, consequuntur exercitationem."
+        "title": "Economics Research Lab Visualization",
+        "image": "/images/line_plot.png",
+        "year": "2025",
+        "description": "A visualization created for the Economics Research Lab, performing Complier Analysis on participants in a laboratory study."
     },
     {
-        "title": "Nisi sit voluptatem consequatur.",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Porro soluta quaerat, atque similique dolorum quis alias dolorem fuga optio excepturi eaque natus vel, autem qui neque itaque, animi maxime earum dicta recusandae! Accusamus quasi sint facere nostrum reprehenderit?"
+        "title": "Analyzing Vehicle Collisions in San Diego Neighborhoods ",
+        "image": "/images/count_report.png",
+        "year": "2025",
+        "description": "A visualization created for the Monarch School's DataJam Final Project, tracking whether the population density of a San Diego neighborhood affected the vehicle collisions it faced over a 10 year span."
     },
     {
-        "title": "Neque sint quia earum.",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Tempore alias tenetur eius iure ipsam distinctio corporis ratione quibusdam. Facilis ipsa corrupti fugiat autem nihil labore accusamus cum distinctio consequuntur. Fugiat quia iusto totam adipisci quam obcaecati eaque atque."
+        "title": "The Generative Fossil Solution",
+        "image": "/images/fossil.gif",
+        "year": "2024",
+        "description": "A DCGAN model that synthesizes immages of fossils, specifically ammonites, to fill the worldwide scracity in fossil images."
     },
     {
-        "title": "Fuga cupiditate nostrum quisquam!",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Magni temporibus saepe ab eveniet? Illo iure delectus aliquam beatae voluptate natus consectetur eaque, laboriosam, omnis dicta hic veniam possimus alias magnam fugit voluptatibus tempore facere deserunt reprehenderit architecto provident."
+        "title": "Synthesis 1 Portfolio",
+        "image": "/images/prop_poster.jpg",
+        "year": "2024",
+        "description": "A portfolio combining two propoganda posters, a sonic piece, and an impassioned statement to represent the different forms of climate communication."
     },
     {
         "title": "Quisquam error culpa soluta!",
