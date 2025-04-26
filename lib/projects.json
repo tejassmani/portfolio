@@ -1,37 +1,37 @@
 [
     {
         "title": "Are Breakfast Foods Processed In and Out of Food Deserts?",
-        "image": "/images/proj1_106.png",
+        "image": "images/proj1_106.png",
         "year": "2025",
         "description": "A visualization delving into the intersection of breakfast and food inequity: Assuming universal product availability, food deserts and non-food deserts serve up similar distributions of highly-processed breakfast foods."
     },
     {
         "title": "Economic Analysis of Power Outages",
-        "image": "/images/newplot.png",
+        "image": "images/newplot.png",
         "year":"2024",
         "description": "A comprehensive analysis to provide an economic perspective in which to examine disparities within the utility industry revolving around this central question: How can econonomic factors explain the length and cause of power outages?"
     },
     {
         "title": "Economics Research Lab Visualization",
-        "image": "/images/line_plot.png",
+        "image": "images/line_plot.png",
         "year": "2025",
         "description": "A visualization created for the Economics Research Lab, performing Complier Analysis on participants in a laboratory study."
     },
     {
         "title": "Analyzing Vehicle Collisions in San Diego Neighborhoods ",
-        "image": "/images/count_report.png",
+        "image": "images/count_report.png",
         "year": "2025",
         "description": "A visualization created for the Monarch School's DataJam Final Project, tracking whether the population density of a San Diego neighborhood affected the vehicle collisions it faced over a 10 year span."
     },
     {
         "title": "The Generative Fossil Solution",
-        "image": "/images/fossil.gif",
+        "image": "images/fossil.gif",
         "year": "2024",
         "description": "A DCGAN model that synthesizes immages of fossils, specifically ammonites, to fill the worldwide scracity in fossil images."
     },
     {
         "title": "Synthesis 1 Portfolio",
-        "image": "/images/prop_poster.jpg",
+        "image": "images/prop_poster.jpg",
         "year": "2024",
         "description": "A portfolio combining two propoganda posters, a sonic piece, and an impassioned statement to represent the different forms of climate communication."
     },
