@@ -25,7 +25,7 @@
     },
     {
         "title": "The Generative Fossil Solution",
-        "image": "https://tejassmani.github.io/portfolio/images/fossil.gif",
+        "image": "./images/fossil.gif",
         "year": "2024",
         "description": "A DCGAN model that synthesizes immages of fossils, specifically ammonites, to fill the worldwide scracity in fossil images."
     },
