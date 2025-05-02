@@ -38,31 +38,37 @@
     {
         "title": "Does Green Investment Have an Effect On Reducing Greenhouse Gas Emissions?",
         "image": "https://tejassmani.github.io/portfolio/images/against.png",
+        "year":"2025",
         "description": "A set of visualizations that incorporate both perceptive and deceptive techniques, tasked at arguing for both sides of this proposotion: Environmental investment has a significant effect on reducing greenhouse gas emissions."
     },
     {
         "title": "The Statistical Power of Bayesian Thinking: From Foundations to Data Science Applications",
         "image": "https://tejassmani.github.io/portfolio/images/bayes_image.png",
+        "year":"2025",
         "description":  "A technical article focused on the history, derivation, technicalities, and applications of Bayesian principles in data science, specifically for Bayesian Active Deep Learning."
     },
     {
         "title": "Synthesis 2 Proposal: Temporal Time Shifting",
         "image": "https://tejassmani.github.io/portfolio/images/temporal.png",
+        "year":"2025",
         "description": "A proposal to implement Temporal Time Shifting in La Jolla Neighborhoods, complete with Literature Review, Aims and Objectives, Research Design and Methodology, Ethical Considerations, and Budget."
     },
     {
         "title": "Identifying Vulnerabilities in Blockchain Technology",
         "image": "https://tejassmani.github.io/portfolio/images/owasp.png",
+        "year":"2022",
         "description": "Linked the OWASP Top 10 security risks for web applications to blockchain vulnerabilities, and simulated penetration testing for smart contracts."
     },
     {
         "title": "World Happiness Analysis",
         "image": "https://tejassmani.github.io/portfolio/images/svm.png",
+        "year":"2021",
         "description": "A comprehensive analysis on world happiness, including exploratory data analysis, regression, and classification models to find the most important variables in predicting whether countries were happy."
     },
     {
         "title": "Clenergy",
         "image": "https://tejassmani.github.io/portfolio/images/clenergy.png",
+        "year":"2025",
         "description": "Established a website that tracked clean energy usage and returned energy statistics for specific countries."
     }
 ]
