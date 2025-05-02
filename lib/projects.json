@@ -19,7 +19,7 @@
     },
     {
         "title": "Analyzing Vehicle Collisions in San Diego Neighborhoods ",
-        "image": "https://github.com/tejassmani/portfolio/blob/main/images/count_report.png?raw=true",
+        "image": "https://github.com/tejassmani/portfolio/images/count_report.png",
         "year": "2025",
         "description": "A visualization created for the Monarch School's DataJam Final Project, tracking whether the population density of a San Diego neighborhood affected the vehicle collisions it faced over a 10 year span."
     },
