@@ -36,33 +36,33 @@
         "description": "A portfolio combining two propoganda posters, a sonic piece, and an impassioned statement to represent the different forms of climate communication."
     },
     {
-        "title": "Quisquam error culpa soluta!",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Libero fugit exercitationem consectetur facere perspiciatis eum rerum nobis sint id velit architecto illum aut assumenda, quidem, perferendis suscipit, nulla ullam. Adipisci, dolore odit hic reiciendis consequatur corrupti aliquid perferendis."
+        "title": "Does Green Investment Have an Effect On Reducing Greenhouse Gas Emissions?",
+        "image": "https://tejassmani.github.io/portfolio/images/against.png",
+        "description": "A set of visualizations that incorporate both perceptive and deceptive techniques, tasked at arguing for both sides of this proposotion: Environmental investment has a significant effect on reducing greenhouse gas emissions."
     },
     {
-        "title": "Ratione facilis nihil quo?",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Illo delectus eius quam in modi! Nostrum ad ullam numquam rem dolores eveniet explicabo, repellat neque impedit minima. Quaerat, expedita necessitatibus? Aspernatur qui nam laboriosam iste. Earum veniam pariatur dolorem!"
+        "title": "The Statistical Power of Bayesian Thinking: From Foundations to Data Science Applications",
+        "image": "https://tejassmani.github.io/portfolio/images/bayes_image.png",
+        "description":  "A technical article focused on the history, derivation, technicalities, and applications of Bayesian principles in data science, specifically for Bayesian Active Deep Learning."
     },
     {
-        "title": "Dicta mollitia laboriosam odio?",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Quaerat neque consectetur a tenetur reiciendis impedit cum beatae amet incidunt ut eos dicta deleniti sint optio iusto nisi facilis, quod atque autem excepturi vel nihil molestiae et? Sed, impedit."
+        "title": "Synthesis 2 Proposal: Temporal Time Shifting",
+        "image": "https://tejassmani.github.io/portfolio/images/temporal.png",
+        "description": "A proposal to implement Temporal Time Shifting in La Jolla Neighborhoods, complete with Literature Review, Aims and Objectives, Research Design and Methodology, Ethical Considerations, and Budget."
     },
     {
-        "title": "Beatae minima quidem error.",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Dolor architecto expedita obcaecati exercitationem ipsam excepturi quos nesciunt repellendus laboriosam explicabo illo accusantium sapiente reprehenderit esse, harum saepe reiciendis commodi, itaque veniam labore necessitatibus debitis eaque est? Vitae, ipsam."
+        "title": "Identifying Vulnerabilities in Blockchain Technology",
+        "image": "https://tejassmani.github.io/portfolio/images/owasp.png",
+        "description": "Linked the OWASP Top 10 security risks for web applications to blockchain vulnerabilities, and simulated penetration testing for smart contracts."
     },
     {
-        "title": "Voluptatem eius optio iste.",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Inventore praesentium quisquam at suscipit eveniet in modi. Veniam rem quasi adipisci placeat sed ex qui vel, sapiente est sint perspiciatis, earum, saepe at. Quas in delectus nemo doloremque quidem?"
+        "title": "World Happiness Analysis",
+        "image": "https://tejassmani.github.io/portfolio/images/svm.png",
+        "description": "A comprehensive analysis on world happiness, including exploratory data analysis, regression, and classification models to find the most important variables in predicting whether countries were happy."
     },
     {
-        "title": "Officiis obcaecati illo non!",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Laboriosam blanditiis fuga delectus corporis adipisci aliquid ea alias. Vero aut, iste harum necessitatibus, nihil cupiditate eum sint nostrum voluptas dolorem neque labore! Corrupti quidem, voluptate hic ut architecto placeat."
+        "title": "Clenergy",
+        "image": "https://tejassmani.github.io/portfolio/images/clenergy.png",
+        "description": "Established a website that tracked clean energy usage and returned energy statistics for specific countries."
     }
 ]
