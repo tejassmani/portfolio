@@ -19,7 +19,7 @@
     },
     {
         "title": "Analyzing Vehicle Collisions in San Diego Neighborhoods ",
-        "image": "https://github.com/tejassmani/portfolio/images/count_report.png",
+        "image": "https://github.com/tejassmani/portfolio/blob/main/images/count_report.png?raw=true",
         "year": "2025",
         "description": "A visualization created for the Monarch School's DataJam Final Project, tracking whether the population density of a San Diego neighborhood affected the vehicle collisions it faced over a 10 year span."
     },
@@ -43,7 +43,7 @@
     },
     {
         "title": "The Statistical Power of Bayesian Thinking: From Foundations to Data Science Applications",
-        "image": "https://tejassmani.github.io/portfolio/images/bayes_image.png",
+        "image": "https://github.com/tejassmani/portfolio/blob/main/images/bayes_article.png?raw=true",
         "year":"2025",
         "description":  "A technical article focused on the history, derivation, technicalities, and applications of Bayesian principles in data science, specifically for Bayesian Active Deep Learning."
     },
