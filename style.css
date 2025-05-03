@@ -231,8 +231,89 @@ body {
   margin: 0;
   grid-row: 2;
 }
+.project-year {
+  color: gray;
+  font-family: Baskerville, serif;
+  margin-top: 0.25em;
+}
 
-  
+.project-text p {
+  margin: 0;
+}
+#projects-plot {
+  max-width: 15em;   /* Make the pie chart smaller */
+  margin-block: 2em;
+  overflow: visible;
+}
+
+/* Container layout */
+.container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Legend layout */
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin: 0;
+  list-style: none;
+  gap: 1rem;
+  flex: 1;
+}
+
+/* Individual legend item */
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Swatch styling */
+.swatch {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: var(--color);
+  border-radius: 0.25em;
+}
+.searchBar {
+  padding: 10px 15px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%; /* Make it expand to the container's width */
+  max-width: 400px; /* Optional: Limit the width of the search bar */
+  margin: 0 auto; /* Center the search bar */
+}
+&:has(path:hover) {
+  path:not(:hover) {
+    opacity: 0.5;
+  }
+}
+path {
+  transition: 300ms;
+}
+.selected {
+  --color: oklch(60% 45% 0) !important;
+
+  &:is(path) {
+    fill: var(--color);
+  }
+}
+.pie-slice {
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.pie-slice.selected {
+  stroke: black;
+  stroke-width: 2;
+  opacity: 0.9;
+}
   
 }
 
