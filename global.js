@@ -1,12 +1,13 @@
-console.log('IT’S ALIVE!');
+console.log("IT’S ALIVE!");
 
 function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
 
-const BASE_PATH = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
-  ? "/"                  // Local server
-  : "/portfolio/";       // GitHub Pages repo name
+const BASE_PATH =
+  location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    ? "/" // Local server
+    : "/portfolio/"; // GitHub Pages repo name
 
 let pages = [
   { url: "", title: "Home" },
@@ -14,7 +15,7 @@ let pages = [
   { url: "resume/", title: "Resume" },
   { url: "contact/", title: "Contact" },
   { url: "meta/", title: "Meta" },
-  { url: "https://github.com/tejassmani", title: "GitHub" }
+  { url: "https://github.com/tejassmani", title: "GitHub" },
 ];
 
 let nav = document.createElement("nav");
@@ -29,7 +30,10 @@ for (let p of pages) {
   let a = document.createElement("a");
   a.href = url;
   a.textContent = title;
-  a.classList.toggle("current", a.host === location.host && a.pathname === location.pathname);
+  a.classList.toggle(
+    "current",
+    a.host === location.host && a.pathname === location.pathname,
+  );
 
   if (a.host !== location.host) {
     a.target = "_blank";
@@ -39,7 +43,7 @@ for (let p of pages) {
 }
 
 document.body.insertAdjacentHTML(
-  'afterbegin',
+  "afterbegin",
   `
     <label class="color-scheme">
       Theme:
@@ -51,27 +55,27 @@ document.body.insertAdjacentHTML(
     </label>`,
 );
 
-const select = document.querySelector('.color-scheme select');
+const select = document.querySelector(".color-scheme select");
 
 function setColorScheme(scheme) {
-  document.documentElement.style.setProperty('color-scheme', scheme);
-  localStorage.setItem('colorScheme', scheme);
+  document.documentElement.style.setProperty("color-scheme", scheme);
+  localStorage.setItem("colorScheme", scheme);
   select.value = scheme;
 }
 
-const saved = localStorage.getItem('colorScheme');
+const saved = localStorage.getItem("colorScheme");
 if (saved) {
   setColorScheme(saved);
 }
 
-select.addEventListener('input', function (event) {
-  console.log('color scheme changed to', event.target.value);
+select.addEventListener("input", function (event) {
+  console.log("color scheme changed to", event.target.value);
   setColorScheme(event.target.value);
 });
 
-const form = document.querySelector('#contact-form');
+const form = document.querySelector("#contact-form");
 
-form?.addEventListener('submit', (event) => {
+form?.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const data = new FormData(form);
@@ -81,7 +85,7 @@ form?.addEventListener('submit', (event) => {
     params.push(`${name}=${encodeURIComponent(value)}`);
   }
 
-  const url = `${form.action}?${params.join('&')}`;
+  const url = `${form.action}?${params.join("&")}`;
   location.href = url;
 });
 
@@ -95,50 +99,54 @@ export async function fetchJSON(url) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching or parsing JSON data:', error);
+    console.error("Error fetching or parsing JSON data:", error);
   }
 }
 
-export function renderProjects(projects, containerElement, headingLevel = 'h2') {
+export function renderProjects(
+  projects,
+  containerElement,
+  headingLevel = "h2",
+) {
   if (!(containerElement instanceof HTMLElement)) {
-    console.error('Invalid containerElement passed to renderProjects.');
+    console.error("Invalid containerElement passed to renderProjects.");
     return;
   }
 
-  const validHeadings = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+  const validHeadings = ["h1", "h2", "h3", "h4", "h5", "h6"];
   if (!validHeadings.includes(headingLevel)) {
-    console.warn(`Invalid headingLevel "${headingLevel}" provided. Defaulting to "h2".`);
-    headingLevel = 'h2';
+    console.warn(
+      `Invalid headingLevel "${headingLevel}" provided. Defaulting to "h2".`,
+    );
+    headingLevel = "h2";
   }
 
-  containerElement.innerHTML = '';
+  containerElement.innerHTML = "";
 
   for (const project of projects) {
-    const article = document.createElement('article');
+    const article = document.createElement("article");
 
-    const title = project.title || 'Untitled Project';
-    const image = project.image || 'placeholder.jpg';
-    const description = project.description || 'No description provided.';
+    const title = project.title || "Untitled Project";
+    const image = project.image || "placeholder.jpg";
+    const description = project.description || "No description provided.";
 
     article.innerHTML = `
       <${headingLevel}>${title}</${headingLevel}>
       <img src="${image}" alt="${title}">
       <div class="project-text">
         <p>${description}</p>
-        <p class="project-year"> Year Created: ${project.year || ''}</p>
+        <p class="project-year"> Year Created: ${project.year || ""}</p>
       </div>
     `;
 
     containerElement.appendChild(article);
   }
-  const projectTitle = document.querySelector('.projects-title');
+  const projectTitle = document.querySelector(".projects-title");
   if (projectTitle) {
     projectTitle.textContent = `${projects.length} Projects`;
   }
 }
 
-export async function fetchGitHubData(username){
+export async function fetchGitHubData(username) {
   return fetchJSON(`https://api.github.com/users/${username}`);
-  
 }
-
