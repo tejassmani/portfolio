@@ -327,3 +327,28 @@ path {
   stroke-width: 2;
   opacity: 0.9;
 }
+
+#stats {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* adjust the number as needed */
+  text-align: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+#stats dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #6b7280; /* subtle gray */
+  margin: 0;
+}
+
+#stats dd {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+#stats dl.stats {
+  display: contents; /* flatten the dl to use grid on dt/dd directly */
+}
