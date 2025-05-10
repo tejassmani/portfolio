@@ -253,6 +253,11 @@ function renderScatterPlot(data, allCommits) {
 
 // Step 5.4: Making the brush actually select dots
 function brushed(event) {
+  // Prevent event propagation to avoid interfering with other interactions
+  if (event.sourceEvent && event.sourceEvent.type === "mousemove") {
+    event.sourceEvent.stopPropagation();
+  }
+
   const selection = event.selection;
   d3.selectAll("circle").classed("selected", (d) =>
     isCommitSelected(selection, d),
@@ -330,12 +335,28 @@ function renderLanguageBreakdown(selection) {
 
 // Function to set up the brush
 function createBrushSelector(svg) {
-  // Create brush and listen for events
-  svg.call(d3.brush().on("start brush end", brushed));
+  // Create a dedicated group for the brush to prevent it from interfering with other elements
+  const brushGroup = svg.append("g").attr("class", "brush-group");
+
+  // Create brush with extent matching the chart area
+  const margin = { top: 10, right: 10, bottom: 30, left: 20 };
+  const width = +svg.attr("viewBox").split(" ")[2];
+  const height = +svg.attr("viewBox").split(" ")[3];
+
+  const brush = d3
+    .brush()
+    .extent([
+      [margin.left, margin.top],
+      [width - margin.right, height - margin.bottom],
+    ])
+    .on("start brush end", brushed);
+
+  // Apply brush to the dedicated group
+  brushGroup.call(brush);
 
   // Step 5.2: Getting our tooltips back
-  // Raise dots and everything after overlay
-  svg.selectAll(".dots, .overlay ~ *").raise();
+  // Raise dots and everything after the brush overlay
+  svg.selectAll(".dots").raise();
 }
 
 function renderTooltipContent(commit, event) {
