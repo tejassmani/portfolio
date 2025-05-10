@@ -352,3 +352,67 @@ path {
 #stats dl.stats {
   display: contents; /* flatten the dl to use grid on dt/dd directly */
 }
+
+.gridlines .tick line {
+  stroke: #ccc;
+  stroke-opacity: 0.4;
+  shape-rendering: crispEdges;
+}
+
+.gridlines path.domain {
+  stroke: none;
+}
+dl.info {
+  transition-duration: 500ms;
+  transition-property: opacity, visibility;
+  opacity: 0;
+  visibility: hidden;
+}
+
+dl.info[hidden]:not(:hover, :focus-within) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+dl.info:not([hidden]) {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip {
+  position: absolute; /* Absolute positioning relative to the page */
+  background-color: rgba(255, 255, 255, 0.8); /* semi-transparent white */
+  border: 1px solid #ccc; /* Light border for visibility */
+  padding: 0.75em 1em; /* Add padding for readability */
+  border-radius: 0.5em; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Subtle shadow for elevation */
+  pointer-events: none; /* Prevent the tooltip from interfering with other elements */
+  z-index: 1000; /* Ensure it's above other elements */
+  display: none; /* Initially hidden */
+}
+
+.tooltip dt {
+  font-weight: bold; /* Make the label bold */
+}
+
+.tooltip dd {
+  margin: 0; /* Remove margins for clean look */
+}
+
+.tooltip:empty {
+  display: none; /* Hide the tooltip if there's no content */
+}
+
+circle {
+  transition: 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+circle:hover {
+  transform: scale(1.5);
+}
+
+circle.selected {
+  fill: #ff6b6b;
+}
