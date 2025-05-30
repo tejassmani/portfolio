@@ -4,6 +4,9 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 let xScale;
 let yScale;
 let commits;
+let commitProgress = 100;
+let timeScale;
+let commitMaxTime;
 
 // Load Data
 async function loadData() {
@@ -40,6 +43,19 @@ function processCommits(data) {
     };
 
     return ret;
+  });
+}
+
+// Time slider change handler
+function onTimeSliderChange() {
+  const slider = document.getElementById("commit-progress");
+  commitProgress = +slider.value;
+  commitMaxTime = timeScale.invert(commitProgress);
+
+  const timeElement = document.getElementById("commit-time");
+  timeElement.textContent = commitMaxTime.toLocaleString("en", {
+    dateStyle: "long",
+    timeStyle: "short",
   });
 }
 
@@ -424,9 +440,31 @@ function updateTooltipPosition(event) {
   tooltip.style.top = `${event.clientY}px`;
 }
 
-// Load and render data
-loadData().then((data) => {
+async function main() {
+  const data = await loadData();
   commits = processCommits(data);
+
+  // Initialize time scale after commits are processed
+  timeScale = d3
+    .scaleTime()
+    .domain([
+      d3.min(commits, (d) => d.datetime),
+      d3.max(commits, (d) => d.datetime),
+    ])
+    .range([0, 100]);
+
+  commitMaxTime = timeScale.invert(commitProgress);
+
+  // Set up event listener for the slider
+  const slider = document.getElementById("commit-progress");
+  slider.addEventListener("input", onTimeSliderChange);
+
+  // Initialize the time display
+  onTimeSliderChange();
+
+  console.log(commits); // here, commits is defined
   renderCommitInfo(data, commits);
   renderScatterPlot(data, commits);
-});
+}
+
+main();

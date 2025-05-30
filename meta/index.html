@@ -5,14 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../style.css" />
     <script type="module" src="../global.js"></script>
-    <script type="module" src="main.js"></script>
+    <script type="module" src="meta.js"></script>
     <title>Meta</title>
+    <style>
+      .slider-container {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 1rem;
+      }
+
+      .slider-container time {
+        margin-left: auto;
+      }
+    </style>
   </head>
 
   <body>
     <h1>Meta</h1>
     <p>This page includes stats about the code of this website.</p>
+
+    <div class="slider-container">
+      <label>
+        Show commits until:
+        <input
+          type="range"
+          id="commit-progress"
+          min="0"
+          max="100"
+          value="100"
+        />
+        <time id="commit-time"></time>
+      </label>
+    </div>
+
     <div id="stats"></div>
+
     <h2>Commits by time of day</h2>
     <div id="chart"></div>
 
