@@ -7,6 +7,9 @@ let commits;
 let commitProgress = 100;
 let timeScale;
 let commitMaxTime;
+// Will get updated as user changes slider
+let filteredCommits;
+let data; // Make data global so it can be accessed in onTimeSliderChange
 
 // Load Data
 async function loadData() {
@@ -20,6 +23,59 @@ async function loadData() {
   }));
 
   return data;
+}
+
+// Update scatter plot function to handle filtered data
+function updateScatterPlot(data, commits) {
+  const width = 1000;
+  const height = 600;
+  const margin = { top: 10, right: 10, bottom: 30, left: 20 };
+  const usableArea = {
+    top: margin.top,
+    right: width - margin.right,
+    bottom: height - margin.bottom,
+    left: margin.left,
+    width: width - margin.left - margin.right,
+    height: height - margin.top - margin.bottom,
+  };
+
+  const svg = d3.select("#chart").select("svg");
+
+  // Update the domain of the existing xScale
+  xScale.domain(d3.extent(commits, (d) => d.datetime));
+
+  const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
+  const rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([2, 30]);
+
+  const xAxis = d3.axisBottom(xScale);
+
+  // Update the x-axis
+  const xAxisGroup = svg.select("g.x-axis");
+  xAxisGroup.selectAll("*").remove();
+  xAxisGroup.call(xAxis);
+
+  const dots = svg.select("g.dots");
+
+  const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
+  dots
+    .selectAll("circle")
+    .data(sortedCommits)
+    .join("circle")
+    .attr("cx", (d) => xScale(d.datetime))
+    .attr("cy", (d) => yScale(d.hourFrac))
+    .attr("r", (d) => rScale(d.totalLines))
+    .attr("fill", "steelblue")
+    .style("fill-opacity", 0.7)
+    .on("mouseenter", (event, commit) => {
+      d3.select(event.currentTarget).style("fill-opacity", 1);
+      renderTooltipContent(commit, event);
+      updateTooltipVisibility(true);
+      updateTooltipPosition(event);
+    })
+    .on("mouseleave", (event) => {
+      d3.select(event.currentTarget).style("fill-opacity", 0.7);
+      updateTooltipVisibility(false);
+    });
 }
 
 // Process commits
@@ -57,6 +113,12 @@ function onTimeSliderChange() {
     dateStyle: "long",
     timeStyle: "short",
   });
+
+  // Filter commits by commitMaxTime
+  filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
+
+  // Update the scatter plot with filtered commits
+  updateScatterPlot(data, filteredCommits);
 }
 
 // Render Commit Info
@@ -125,6 +187,7 @@ function renderCommitInfo(data, commits) {
     (d) => timeOfDay(new Date(d.datetime).getHours()),
   );
   const mostActivePeriod = d3.max(workByTimePeriod, (d) => d[1])?.[0];
+  dl.append("dt").text("Most active time");
   dl.append("dd").text(mostActivePeriod);
 
   // Day of the week most work is done
@@ -143,6 +206,7 @@ function renderCommitInfo(data, commits) {
     (d) => new Date(d.datetime).getDay(),
   );
   const mostActiveDay = d3.max(workByDay, (d) => d[1])?.[0];
+  dl.append("dt").text("Most active day");
   dl.append("dd").text(dayNames[mostActiveDay]);
 }
 
@@ -225,11 +289,13 @@ function renderScatterPlot(data, allCommits) {
   svg
     .append("g")
     .attr("transform", `translate(0, ${usableArea.bottom})`)
+    .attr("class", "x-axis") // new line to mark the g tag
     .call(xAxis);
 
   svg
     .append("g")
     .attr("transform", `translate(${usableArea.left}, 0)`)
+    .attr("class", "y-axis") // just for consistency
     .call(yAxis);
 
   // Step 5.1: Setting up the brush
@@ -441,7 +507,7 @@ function updateTooltipPosition(event) {
 }
 
 async function main() {
-  const data = await loadData();
+  data = await loadData(); // Remove const to make it global
   commits = processCommits(data);
 
   // Initialize time scale after commits are processed
@@ -455,16 +521,19 @@ async function main() {
 
   commitMaxTime = timeScale.invert(commitProgress);
 
-  // Set up event listener for the slider
+  // Initialize filteredCommits with all commits
+  filteredCommits = commits;
+
+  console.log(commits); // here, commits is defined
+  renderCommitInfo(data, commits);
+  renderScatterPlot(data, commits);
+
+  // Set up event listener for the slider AFTER renderScatterPlot
   const slider = document.getElementById("commit-progress");
   slider.addEventListener("input", onTimeSliderChange);
 
   // Initialize the time display
   onTimeSliderChange();
-
-  console.log(commits); // here, commits is defined
-  renderCommitInfo(data, commits);
-  renderScatterPlot(data, commits);
 }
 
 main();
