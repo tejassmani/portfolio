@@ -479,7 +479,7 @@ function renderTooltipContent(commit, event) {
   // Set the tooltip content
   const link = document.getElementById("commit-link");
   const date = document.getElementById("commit-date");
-  const time = document.getElementById("commit-time");
+  const time = document.getElementById("commit-time-tooltip"); // Changed ID
   const author = document.getElementById("commit-author");
   const totalLines = document.getElementById("commit-total-lines");
 

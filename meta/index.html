@@ -9,24 +9,40 @@
     <title>Meta</title>
     <style>
       .slider-container {
-        display: flex;
-        align-items: baseline;
         margin-bottom: 1rem;
+        width: 100%;
       }
 
-      .slider-container time {
-        margin-left: auto;
+      .slider-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .slider-wrapper label {
+        white-space: nowrap;
+      }
+
+      .slider-wrapper input[type="range"] {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .time-display {
+        text-align: right;
+        font-size: 0.9em;
+        color: #666;
       }
     </style>
   </head>
-
   <body>
     <h1>Meta</h1>
     <p>This page includes stats about the code of this website.</p>
 
     <div class="slider-container">
-      <label>
-        Show commits until:
+      <div class="slider-wrapper">
+        <label for="commit-progress">Show commits until:</label>
         <input
           type="range"
           id="commit-progress"
@@ -34,8 +50,10 @@
           max="100"
           value="100"
         />
+      </div>
+      <div class="time-display">
         <time id="commit-time"></time>
-      </label>
+      </div>
     </div>
 
     <div id="stats"></div>
@@ -54,7 +72,7 @@
 
       <!-- Add: Time, author, lines edited -->
       <dt>Time</dt>
-      <dd id="commit-time"></dd>
+      <dd id="commit-time-tooltip"></dd>
 
       <dt>Author</dt>
       <dd id="commit-author"></dd>

@@ -407,6 +407,9 @@ circle {
   transition: 200ms;
   transform-origin: center;
   transform-box: fill-box;
+  @starting-style {
+    r: 0;
+  }
 }
 
 circle:hover {
