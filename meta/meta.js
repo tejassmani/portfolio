@@ -1,4 +1,5 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
+import scrollama from "https://cdn.jsdelivr.net/npm/scrollama@3.2.0/+esm";
 
 // Define global scale variables
 let xScale;
@@ -81,25 +82,27 @@ function updateScatterPlot(data, commits) {
 // Process commits
 function processCommits(data) {
   const groupedData = d3.groups(data, (d) => d.commit);
-  return groupedData.map(([commit, lines]) => {
-    let first = lines[0];
-    let { author, date, time, timezone, datetime } = first;
+  return groupedData
+    .map(([commit, lines]) => {
+      let first = lines[0];
+      let { author, date, time, timezone, datetime } = first;
 
-    let ret = {
-      id: commit,
-      url: "https://github.com/vis-society/lab-7/commit/" + commit,
-      author,
-      date,
-      time,
-      timezone,
-      datetime,
-      hourFrac: datetime.getHours() + datetime.getMinutes() / 60,
-      totalLines: lines.length,
-      lines: lines, // Keep lines accessible
-    };
+      let ret = {
+        id: commit,
+        url: "https://github.com/vis-society/lab-7/commit/" + commit,
+        author,
+        date,
+        time,
+        timezone,
+        datetime,
+        hourFrac: datetime.getHours() + datetime.getMinutes() / 60,
+        totalLines: lines.length,
+        lines: lines, // Keep lines accessible
+      };
 
-    return ret;
-  });
+      return ret;
+    })
+    .sort((a, b) => a.datetime - b.datetime); // Sort commits by datetime
 }
 
 // Time slider change handler
@@ -117,97 +120,159 @@ function onTimeSliderChange() {
   // Filter commits by commitMaxTime
   filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
 
+  // Filter data by commitMaxTime as well
+  const filteredData = data.filter((d) => d.datetime <= commitMaxTime);
+
   // Update the scatter plot with filtered commits
-  updateScatterPlot(data, filteredCommits);
+  updateScatterPlot(filteredData, filteredCommits);
+
+  // Update file visualization
+  updateFileVisualization();
+
+  // Update stats with filtered data
+  updateStats(filteredData, filteredCommits);
+}
+
+// New function to update file visualization with unit visualization
+function updateFileVisualization() {
+  // Get lines from filtered commits
+  let lines = filteredCommits.flatMap((d) => d.lines);
+  let files = d3
+    .groups(lines, (d) => d.file)
+    .map(([name, lines]) => {
+      // Extract file extension to determine type
+      const extension = name.split(".").pop().toLowerCase();
+      return { name, lines, type: extension };
+    })
+    .sort((a, b) => b.lines.length - a.lines.length);
+
+  let colors = d3.scaleOrdinal(d3.schemeTableau10);
+
+  // Use D3 to update the files container
+  let filesContainer = d3
+    .select("#files")
+    .selectAll("div")
+    .data(files, (d) => d.name)
+    .join(
+      // This code only runs when the div is initially rendered
+      (enter) =>
+        enter.append("div").call((div) => {
+          div.append("dt");
+          div.append("dd");
+        }),
+    )
+    .attr("style", (d) => `--color: ${colors(d.type)}`);
+
+  // Update the dt content with file name and line count
+  filesContainer.select("dt").html(
+    (d) => `
+    <code>${d.name}</code>
+    <small style="display: block; font-size: 0.8em; opacity: 0.7; font-weight: normal;">
+      ${d.lines.length} lines
+    </small>
+  `,
+  );
+
+  // Create unit visualization - one div per line
+  filesContainer
+    .select("dd")
+    .selectAll("div")
+    .data((d) => d.lines)
+    .join("div")
+    .attr("class", "loc");
 }
 
 // Render Commit Info
 function renderCommitInfo(data, commits) {
   const dl = d3.select("#stats").append("dl").attr("class", "stats");
 
+  // Create placeholder elements that will be updated
   // Total LOC
   dl.append("dt").html('Total <abbr title="Lines of code">LOC</abbr>');
-  dl.append("dd").text(data.length);
+  dl.append("dd").attr("id", "total-loc");
 
   // Total commits
   dl.append("dt").text("Total commits");
-  dl.append("dd").text(commits.length);
+  dl.append("dd").attr("id", "total-commits");
+
+  // Number of files in the codebase
+  dl.append("dt").text("Number of files");
+  dl.append("dd").attr("id", "num-files");
+
+  // Longest line (in characters)
+  dl.append("dt").text("Longest line (chars)");
+  dl.append("dd").attr("id", "longest-line");
+
+  // Average line length (in characters)
+  dl.append("dt").text("Avg line length");
+  dl.append("dd").attr("id", "avg-line-length");
+
+  // Maximum file length (in lines)
+  dl.append("dt").text("Max file length");
+  dl.append("dd").attr("id", "max-file-length");
+
+  // Average file length (in lines)
+  dl.append("dt").text("Avg file length");
+  dl.append("dd").attr("id", "avg-file-length");
+
+  // Average file depth (max depth per file averaged)
+  dl.append("dt").text("Avg file depth");
+  dl.append("dd").attr("id", "avg-file-depth");
+
+  // Initialize with full data
+  updateStats(data, commits);
+}
+
+// New function to update stats
+function updateStats(data, commits) {
+  // Total LOC
+  d3.select("#total-loc").text(data.length);
+
+  // Total commits
+  d3.select("#total-commits").text(commits.length);
 
   // Number of files in the codebase
   const numFiles = d3.group(data, (d) => d.file).size;
-  dl.append("dt").text("Number of files");
-  dl.append("dd").text(numFiles);
+  d3.select("#num-files").text(numFiles);
 
   // Longest line (in characters)
-  const longestLine = d3.max(data, (d) => d.length);
-  dl.append("dt").text("Longest line (chars)");
-  dl.append("dd").text(longestLine);
+  const longestLine = data.length > 0 ? d3.max(data, (d) => d.length) : 0;
+  d3.select("#longest-line").text(longestLine);
 
   // Average line length (in characters)
-  const avgLineLength = d3.mean(data, (d) => d.length);
-  dl.append("dt").text("Avg line length");
-  dl.append("dd").text(avgLineLength.toFixed(1));
+  const avgLineLength = data.length > 0 ? d3.mean(data, (d) => d.length) : 0;
+  d3.select("#avg-line-length").text(avgLineLength.toFixed(1));
 
   // Maximum file length (in lines)
-  const fileLengths = d3.rollups(
-    data,
-    (v) => d3.max(v, (d) => d.line),
-    (d) => d.file,
-  );
-  const maxFileLength = d3.max(fileLengths, (d) => d[1]);
-  dl.append("dt").text("Max file length");
-  dl.append("dd").text(maxFileLength);
+  if (data.length > 0) {
+    const fileLengths = d3.rollups(
+      data,
+      (v) => d3.max(v, (d) => d.line),
+      (d) => d.file,
+    );
+    const maxFileLength = d3.max(fileLengths, (d) => d[1]);
+    d3.select("#max-file-length").text(maxFileLength);
 
-  // Average file length (in lines)
-  const avgFileLength = d3.mean(fileLengths, (d) => d[1]);
-  dl.append("dt").text("Avg file length");
-  dl.append("dd").text(avgFileLength.toFixed(1));
+    // Average file length (in lines)
+    const avgFileLength = d3.mean(fileLengths, (d) => d[1]);
+    d3.select("#avg-file-length").text(avgFileLength.toFixed(1));
+  } else {
+    d3.select("#max-file-length").text(0);
+    d3.select("#avg-file-length").text("0.0");
+  }
 
   // Average file depth (max depth per file averaged)
-  const fileDepths = d3.rollups(
-    data,
-    (v) => d3.max(v, (d) => d.depth),
-    (d) => d.file,
-  );
-  const avgFileDepth = d3.mean(fileDepths, (d) => d[1]);
-  dl.append("dt").text("Avg file depth");
-  dl.append("dd").text(avgFileDepth.toFixed(2));
-
-  // Time of day most work is done (morning, afternoon, evening, night)
-  const timeOfDay = (hour) => {
-    if (hour >= 5 && hour < 12) return "Morning";
-    if (hour >= 12 && hour < 17) return "Afternoon";
-    if (hour >= 17 && hour < 21) return "Evening";
-    return "Night";
-  };
-
-  const workByTimePeriod = d3.rollups(
-    data,
-    (v) => v.length,
-    (d) => timeOfDay(new Date(d.datetime).getHours()),
-  );
-  const mostActivePeriod = d3.max(workByTimePeriod, (d) => d[1])?.[0];
-  dl.append("dt").text("Most active time");
-  dl.append("dd").text(mostActivePeriod);
-
-  // Day of the week most work is done
-  const dayNames = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const workByDay = d3.rollups(
-    data,
-    (v) => v.length,
-    (d) => new Date(d.datetime).getDay(),
-  );
-  const mostActiveDay = d3.max(workByDay, (d) => d[1])?.[0];
-  dl.append("dt").text("Most active day");
-  dl.append("dd").text(dayNames[mostActiveDay]);
+  if (data.length > 0) {
+    const fileDepths = d3.rollups(
+      data,
+      (v) => d3.max(v, (d) => d.depth),
+      (d) => d.file,
+    );
+    const avgFileDepth = d3.mean(fileDepths, (d) => d[1]);
+    d3.select("#avg-file-depth").text(avgFileDepth.toFixed(2));
+  } else {
+    d3.select("#avg-file-depth").text("0.00");
+  }
 }
 
 // Render Scatter Plot
@@ -506,6 +571,38 @@ function updateTooltipPosition(event) {
   tooltip.style.top = `${event.clientY}px`;
 }
 
+// Scrollama functions
+function onStepEnter(response) {
+  const commitData = response.element.__data__;
+  const commitDateTime = commitData.datetime;
+
+  // Filter commits up to the current commit's datetime
+  filteredCommits = commits.filter((d) => d.datetime <= commitDateTime);
+
+  // Filter data by the same datetime
+  const filteredData = data.filter((d) => d.datetime <= commitDateTime);
+
+  // Update the scatter plot with filtered commits
+  updateScatterPlot(filteredData, filteredCommits);
+
+  // Update file visualization
+  updateFileVisualization();
+
+  // Update stats with filtered data
+  updateStats(filteredData, filteredCommits);
+
+  // Update the slider to match the current commit
+  const sliderValue = timeScale(commitDateTime);
+  document.getElementById("commit-progress").value = sliderValue;
+
+  // Update time display
+  const timeElement = document.getElementById("commit-time");
+  timeElement.textContent = commitDateTime.toLocaleString("en", {
+    dateStyle: "long",
+    timeStyle: "short",
+  });
+}
+
 async function main() {
   data = await loadData(); // Remove const to make it global
   commits = processCommits(data);
@@ -528,11 +625,48 @@ async function main() {
   renderCommitInfo(data, commits);
   renderScatterPlot(data, commits);
 
+  // Generate commit text for scrollytelling
+  d3.select("#scatter-story")
+    .selectAll(".step")
+    .data(commits)
+    .join("div")
+    .attr("class", "step")
+    .html(
+      (d, i) => `
+      <p>On ${d.datetime.toLocaleString("en", {
+        dateStyle: "full",
+        timeStyle: "short",
+      })},
+      I made <a href="${d.url}" target="_blank">${
+        i > 0
+          ? "another glorious commit"
+          : "my first commit, and it was glorious"
+      }</a>.
+      I edited ${d.totalLines} lines across ${
+        d3.rollups(
+          d.lines,
+          (D) => D.length,
+          (d) => d.file,
+        ).length
+      } files.
+      Then I looked over all I had made, and I saw that it was very good.</p>
+    `,
+    );
+
+  // Set up Scrollama
+  const scroller = scrollama();
+  scroller
+    .setup({
+      container: "#scrolly-1",
+      step: "#scrolly-1 .step",
+    })
+    .onStepEnter(onStepEnter);
+
   // Set up event listener for the slider AFTER renderScatterPlot
   const slider = document.getElementById("commit-progress");
   slider.addEventListener("input", onTimeSliderChange);
 
-  // Initialize the time display
+  // Initialize the time display, file visualization, and stats
   onTimeSliderChange();
 }
 

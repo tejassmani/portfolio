@@ -6,6 +6,109 @@
     <link rel="stylesheet" href="../style.css" />
     <script type="module" src="../global.js"></script>
     <script type="module" src="meta.js"></script>
+    <style>
+      .step {
+        padding-bottom: 100vh;
+        margin-bottom: 2rem;
+      }
+
+      #scrolly-1 {
+        position: relative;
+      }
+
+      #scatter-story {
+        width: 50%;
+        float: left;
+        padding-right: 2rem;
+      }
+
+      #scatter-plot {
+        width: 50%;
+        float: right;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Make stats more compact */
+      #stats {
+        font-size: 0.85em;
+        margin-bottom: 0.5rem;
+        max-height: 120px;
+        overflow-y: auto;
+      }
+
+      #stats dl {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.25rem 1rem;
+        margin: 0;
+      }
+
+      #stats dt {
+        font-weight: 600;
+        font-size: 0.9em;
+        margin: 0;
+        padding: 0.1rem 0;
+      }
+
+      #stats dd {
+        margin: 0;
+        padding: 0.1rem 0;
+        font-size: 0.95em;
+      }
+
+      /* Make chart area larger */
+      #chart-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #chart-container h2 {
+        margin: 0.5rem 0;
+        font-size: 1.1em;
+      }
+
+      #chart {
+        flex: 1;
+        min-height: 0; /* Allow flexbox to shrink */
+      }
+
+      #chart svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Selection info styling */
+      #selection-count {
+        font-size: 0.8em;
+        margin: 0.25rem 0;
+        color: #666;
+      }
+
+      #language-breakdown {
+        font-size: 0.75em;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.1rem 0.5rem;
+        margin-top: 0.25rem;
+      }
+
+      #language-breakdown dt {
+        font-weight: 600;
+        margin: 0;
+        padding: 0.05rem 0;
+      }
+
+      #language-breakdown dd {
+        margin: 0;
+        padding: 0.05rem 0;
+        font-size: 0.9em;
+      }
+    </style>
     <title>Meta</title>
     <style>
       .slider-container {
@@ -34,6 +137,67 @@
         font-size: 0.9em;
         color: #666;
       }
+
+      #files {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      #files div {
+        margin-bottom: 0.5rem;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 0.5rem;
+        align-items: start;
+      }
+
+      #files dt {
+        font-weight: bold;
+        font-size: 1em;
+        grid-column: 1;
+        white-space: nowrap;
+        padding-right: 0.5rem;
+        width: 200px;
+        align-self: start;
+      }
+
+      #files code {
+        background-color: #f4f4f4;
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+        font-family: "Courier New", monospace;
+        font-size: 0.9em;
+      }
+
+      #files small {
+        color: #666;
+        font-size: 0.8em;
+        opacity: 0.7;
+        font-weight: normal;
+        display: block;
+        margin-top: 0.1em;
+      }
+
+      /* Unit visualization styles - each line is represented as a small circle */
+      .loc {
+        display: flex;
+        width: 0.5em;
+        aspect-ratio: 1;
+        background: steelblue;
+        border-radius: 50%;
+      }
+
+      dd {
+        grid-column: 2;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: start;
+        align-content: start;
+        gap: 0.15em;
+        padding-top: 0;
+        margin-left: 0;
+        align-self: start;
+      }
     </style>
   </head>
   <body>
@@ -56,10 +220,17 @@
       </div>
     </div>
 
-    <div id="stats"></div>
+    <div id="scrolly-1">
+      <div id="scatter-story"><b>Scroll through my portfolio commits!</b></div>
+      <div id="scatter-plot">
+        <div id="stats"></div>
 
-    <h2>Commits by time of day</h2>
-    <div id="chart"></div>
+        <div id="chart-container">
+          <h2>Commits by time of day</h2>
+          <div id="chart"></div>
+        </div>
+      </div>
+    </div>
 
     <dl id="commit-tooltip" class="info tooltip" hidden>
       <dt>Commit</dt>
@@ -80,5 +251,38 @@
       <dt>Total Lines Edited</dt>
       <dd id="commit-total-lines"></dd>
     </dl>
+
+    <style>
+      ...
+      #stats {
+        font-size: 0.85em;
+        margin-bottom: 0.5rem;
+        max-height: 180px; /* increased from 120px */
+        overflow-y: auto;
+      }
+
+      #chart-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #chart-container h2 {
+        margin: 0; /* removed vertical margin to close gap */
+        font-size: 1.1em;
+      }
+
+      #chart {
+        flex: 1;
+        min-height: 0;
+        margin-top: 0.25rem; /* optional: small space if it looks cramped */
+      }
+
+      #chart svg {
+        width: 100%;
+        height: 100%;
+      }
+      ...
+    </style>
   </body>
 </html>
