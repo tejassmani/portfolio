@@ -423,28 +423,53 @@ circle.selected {
 #files {
   display: grid;
   grid-template-columns: 1fr 4fr;
-
-  > div {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: subgrid;
-  }
-
-  dt {
-    grid-column: 1;
-  }
-
-  dd {
-    grid-column: 2;
-  }
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
+#files > div {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  margin-bottom: 0.5rem;
+  align-items: start;
+}
+
+#files dt {
+  grid-column: 1;
+  font-weight: bold;
+  font-size: 1em;
+  white-space: nowrap;
+  padding-right: 0.5rem;
+  width: 200px;
+  align-self: start;
+}
+
+#files code {
+  background-color: #f4f4f4;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-family: "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+#files small {
+  color: #666;
+  font-size: 0.8em;
+  opacity: 0.7;
+  font-weight: normal;
+  display: block;
+  margin-top: 0.1em;
+}
+
+/* FIXED: Unit visualization styles - each line is represented as a small circle */
 .loc {
-  display: flex;
+  display: block; /* Changed from flex to block */
   width: 0.5em;
-  aspect-ratio: 1;
+  height: 0.5em; /* Explicit height instead of aspect-ratio */
   background: var(--color, steelblue);
   border-radius: 50%;
+  flex-shrink: 0; /* Prevent shrinking in flex container */
 }
 
 dd {
@@ -456,6 +481,7 @@ dd {
   gap: 0.15em;
   padding-top: 0.6em;
   margin-left: 0;
+  align-self: start;
 }
 
 #scrolly-1 {

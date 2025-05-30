@@ -133,7 +133,7 @@ function onTimeSliderChange() {
   updateStats(filteredData, filteredCommits);
 }
 
-// New function to update file visualization with unit visualization
+// FIXED: File visualization function with proper unit visualization
 function updateFileVisualization() {
   // Get lines from filtered commits
   let lines = filteredCommits.flatMap((d) => d.lines);
@@ -161,7 +161,7 @@ function updateFileVisualization() {
           div.append("dd");
         }),
     )
-    .attr("style", (d) => `--color: ${colors(d.type)}`);
+    .style("--color", (d) => colors(d.type)); // Fixed: Set CSS custom property
 
   // Update the dt content with file name and line count
   filesContainer.select("dt").html(
@@ -173,13 +173,14 @@ function updateFileVisualization() {
   `,
   );
 
-  // Create unit visualization - one div per line
+  // FIXED: Create unit visualization - one div per line with proper class and styling
   filesContainer
     .select("dd")
-    .selectAll("div")
+    .selectAll("div.loc") // Specify class selector to avoid conflicts
     .data((d) => d.lines)
     .join("div")
-    .attr("class", "loc");
+    .attr("class", "loc")
+    .style("background", (d) => colors(d.type)); // Apply color directly to each unit
 }
 
 // Render Commit Info
